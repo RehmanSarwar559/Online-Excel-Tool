@@ -1,0 +1,49 @@
+# Online Excel Tool — Test Automation Suite
+
+This repository contains a [Cypress](https://www.cypress.io/) end-to-end (E2E) test automation suite for **Online Excel Tool**, a web application with three distinct user roles: **Upper Management (Admin)**, **Group A**, and **Group B**. The suite uses the Page Object Model (POM) pattern to keep UI selectors and reusable actions separate from the test scenarios themselves.
+
+## What This Suite Tests
+
+The main spec (`OETMain.cy.js`) exercises the application end-to-end across all three roles, including:
+
+**Upper Management (Admin)**
+- Login
+- Creating users and assigning them to a role (Upper Management, Group A, or Group B)
+- Managing records (add, edit, delete)
+- Managing sheet versions (add, edit, delete)
+- Changing account password
+
+**Group A**
+- Login
+- Adding records
+- Changing account password / logout
+
+**Group B**
+- Login
+- Adding and deleting financial value entries
+- Changing account password / logout
+
+## Repository Structure
+
+```
+Online-Excel-Tool/
+├── Main Online Excel File/
+│   └── OETMain.cy.js          # Main Cypress spec — runs the full test flow across all roles
+├── Upper Management/
+│   └── Files/
+│       ├── LoginAdmin.js          # Admin login actions
+│       ├── UserMenuAdmin.js       # Create/assign users to roles
+│       ├── RecordAdmin.js         # Record management (edit/delete)
+│       ├── SheetversionAdmin.js   # Sheet version management (add/edit/delete)
+│       └── SettingAdmin.js        # Admin account settings
+├── GroupA/
+│   ├── ALogin.js               # Group A login
+│   ├── ARecord.js              # Group A record creation
+│   └── ASetting.js             # Group A account settings
+└── Group B/
+    ├── BSignin.js               # Group B login
+    ├── BFinancialValue.js       # Group B financial value entries (add/delete)
+    └── BSetting.js              # Group B account settings
+```
+
+Each role folder follows the Page Object Model: files export a class whose methods wrap the Cypress commands (`cy.get`, `.click`, `.type`, etc.) needed to interact with that part of the UI. `OETMain.cy.js` imports these classes and chains their methods together into readable test cases.
